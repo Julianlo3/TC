@@ -1,0 +1,15 @@
+<RCC>
+  <qresource prefix="imgVD">
+    <file>vendigMachine.png</file>
+  </qresource>
+  <qresource prefix="boton">
+    <file>mas.png</file>
+    <file>boton-menos.png</file>
+  </qresource>
+  <qresource prefix="monedas">
+    <file>refund.png</file>
+    <file>moneda1.png</file>
+    <file>moneda2.png</file>
+    <file>moneda5.png</file>
+  </qresource>
+</RCC>
