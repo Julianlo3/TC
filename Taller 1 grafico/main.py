@@ -1,14 +1,16 @@
 import sys
 import subprocess,platform,os;
 import itertools
+from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication,QDialog
 from PyQt5.QtGui import QStandardItemModel, QStandardItem
 from vPrincipal import Ui_Wprincipal
 from punto1 import Ui_Punto1
 from punto2 import Ui_Punto2
 from punto3 import Ui_punto3
+from VMDef import Ui_VdefVM
 sys.path.append(os.path.abspath("./Files/img"))
-import imgVM_rc
+
 
 def concatenacionRecu(listas, index=0):
     # Caso base: Si ya hemos recorrido todas las listas, retornar una lista vacía como base
@@ -88,7 +90,6 @@ def generarDefVM():
         return defVm
 
     
-
 class Mydialog(QDialog):
     def __init__(self):
         super().__init__();
@@ -108,20 +109,20 @@ class Mydialog(QDialog):
         self.ui2.txtl1.setText("x,y,z")
         self.ui2.txtl2.setText("0,1")
         self.ui2.txtl3.setText("a,b")
-        self.punto1.exec_();
+        self.punto1.show();
         
     def abrirPunto2(self):
         self.punto2 = QDialog(self);
         self.ui3=Ui_Punto2();
         self.ui3.setupUi(self.punto2);
         self.ui3.BtnGenerarTablaV.clicked.connect(self.generarTabla)
-        self.punto2.exec_();
+        self.ui3.lbnValidacion.hide()
+        self.punto2.show();
     
     def abrirPunto3(self):
         self.punto3 = QDialog(self);
         self.ui4=Ui_punto3();
         self.ui4.setupUi(self.punto3);
-        self.ui4.txtDefVM.setPlainText(str(generarDefVM()))
         self.ui4.btn500mas.clicked.connect(lambda: self.sumarDinero(500))
         self.ui4.btn500menos.clicked.connect(lambda:self.sumarDinero(-500))
         self.ui4.btn200mas.clicked.connect(lambda: self.sumarDinero(200))
@@ -129,7 +130,28 @@ class Mydialog(QDialog):
         self.ui4.btn100mas.clicked.connect(lambda: self.sumarDinero(100))
         self.ui4.btn100menos.clicked.connect(lambda: self.sumarDinero(-100))
         self.ui4.txtCantidadTotal.setText("0");
-        self.punto3.exec_();
+        self.ui4.btnDefinicionFormaVM.clicked.connect(self.abrirPunto3def)
+        self.punto3.show();
+    
+    def abrirPunto3def(self):
+        self.VMDef = QDialog(self);
+        self.ui5 = Ui_VdefVM();
+        self.ui5.setupUi(self.VMDef);
+        s = [0, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300,">1300"]
+        self.ui5.txtSVM.setText(str(s));
+        omega= [+100,-100,+200,-200,+500,-500];
+        self.ui5.txtOmeVM.setText(str(omega));
+        i = [0];
+        self.ui5.txtIVm.setText(str(i))
+        f = [1300];
+        self.ui5.txtFVM.setText(str(f))
+        delta = productoCruz(s,omega);
+        self.ui5.txtSigVM.setPlainText(str(delta))
+        defVm = [s,omega,delta,i,f]
+        self.ui5.txtDefVM.setPlainText(str(defVm))
+        
+        
+        self.VMDef.show();
         
     def generarConca(self):
         L1 = self.ui2.txtl1.text();
@@ -224,8 +246,9 @@ class Mydialog(QDialog):
                 ]
                 model4.appendRow(row)
         self.ui3.TbMorgan4.setModel(model4);
-        self.ui3.TbMorgan4.resizeColumnsToContents();
-        self.ui3.TbMorgan4.resizeRowsToContents();
+
+        
+        self.ui3.lbnValidacion.show()
         
         
     def abrirPdf(self):
@@ -273,6 +296,7 @@ class Mydialog(QDialog):
         match cantidad:
             case 500:
                 cantidadActual= int(self.ui4.lbCmoneda500.text());
+               
                 self.ui4.lbCmoneda500.setText(str(cantidadActual+1))
             case -500:
                 cantidadActual= int(self.ui4.lbCmoneda500.text());
