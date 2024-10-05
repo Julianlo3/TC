@@ -1,14 +1,95 @@
 import sys
 import subprocess,platform,os;
 import itertools
-from PyQt5.QtWidgets import QApplication,QDialog
+from PyQt5.QtCore import Qt
+from PyQt5.QtWidgets import QApplication,QDialog, QApplication, QGraphicsView, QGraphicsScene, QPushButton, QGraphicsEllipseItem , QGraphicsTextItem, QInputDialog, QGraphicsLineItem, QMenu, QAction
+from PyQt5.QtGui import QTextCursor
+from PyQt5.QtWidgets import QGraphicsEllipseItem, QGraphicsTextItem
 from PyQt5.QtGui import QStandardItemModel, QStandardItem
+from PyQt5.QtCore import QRectF
 from vPrincipal import Ui_Wprincipal
 from punto1 import Ui_Punto1
 from punto2 import Ui_Punto2
 from punto3 import Ui_punto3
+from VMDef import Ui_VdefVM
+from vAEFD import Ui_vAEFD
 sys.path.append(os.path.abspath("./Files/img"))
-import imgVM_rc
+
+class EstadoItem(QGraphicsEllipseItem):
+    id_counter = 0  # Contador estático para generar ids únicos
+
+    def __init__(self, x, y, width, height, nombre="Estado", simulador=None):
+        nuevo_estado = EstadoItem(x, y, width, height, nombre="Estado", simulador=self)
+        self.scene.addItem(nuevo_estado)
+        self.estados.append(nuevo_estado)
+
+        super().__init__(x, y, width, height)
+        self.setFlag(QGraphicsEllipseItem.ItemIsMovable)  # Para que el estado sea movible
+        self.setFlag(QGraphicsEllipseItem.ItemIsSelectable)  # Para que se pueda seleccionar
+        self.setFlag(QGraphicsEllipseItem.ItemSendsGeometryChanges)  # Para detectar cambios de posición
+        self.simulador = simulador  # Referencia al simulador (para la eliminación)
+        
+        # Asignar un id único a cada estado
+        self.id = EstadoItem.id_counter
+        EstadoItem.id_counter += 1  # Incrementar el contador para el próximo estado
+        
+        # Crear el texto asociado al estado
+        self.texto = QGraphicsTextItem(nombre, self)
+        self.texto.setDefaultTextColor(Qt.black)  # Color del texto
+        self.updateTextPosition()
+
+    def updateTextPosition(self):
+        # Centramos el texto dentro del círculo
+        text_rect = self.texto.boundingRect()
+        circle_center = self.rect().center()
+        self.texto.setPos(
+            circle_center.x() - text_rect.width() / 2,
+            circle_center.y() - text_rect.height() / 2
+        )
+    
+    def mouseDoubleClickEvent(self, event):
+        # Permitir cambiar el nombre del estado al hacer doble clic
+        nuevo_nombre, ok = QInputDialog.getText(None, "Cambiar nombre del estado", "Nuevo nombre:")
+        if ok and nuevo_nombre:
+            self.texto.setPlainText(nuevo_nombre)  # Corregido: usar setPlainText
+            self.updateTextPosition()
+        super().mouseDoubleClickEvent(event)
+
+    def itemChange(self, change, value):
+        # Detectar cuando el estado se mueve y actualizar la posición del texto
+        if change == QGraphicsEllipseItem.ItemPositionChange:
+            self.updateTextPosition()
+        return super().itemChange(change, value)
+    
+    def eliminar_estado(self, estado_id):
+        # Obtener el estado por su id
+        estado = self.simulador.obtener_estado_por_id(estado_id)
+        
+        if estado:
+            # Eliminar el estado de la escena
+            self.simulador.scene.removeItem(estado)
+
+            # Eliminar transiciones relacionadas con el estado
+            transiciones_a_eliminar = [transicion for transicion in self.simulador.transiciones if transicion.origen == estado_id or transicion.destino == estado_id]
+            for transicion in transiciones_a_eliminar:
+                self.simulador.eliminar_transicion(transicion.id)
+
+            # Actualizar la lista de estados en el simulador
+            self.simulador.estados = [estado for estado in self.simulador.estados if estado.id != estado_id]
+
+    
+    def contextMenuEvent(self, event):
+        menu = QMenu()
+        eliminar_action = QAction("Eliminar estado", None)  # Cambiar el segundo argumento a None
+        eliminar_action.triggered.connect(lambda: self.eliminar_estado(self.id))  # Pasamos el estado_id aquí
+        menu.addAction(eliminar_action)
+        menu.exec_(event.screenPos())
+
+
+
+    
+
+
 
 def concatenacionRecu(listas, index=0):
     # Caso base: Si ya hemos recorrido todas las listas, retornar una lista vacía como base
@@ -88,7 +169,6 @@ def generarDefVM():
         return defVm
 
     
-
 class Mydialog(QDialog):
     def __init__(self):
         super().__init__();
@@ -98,6 +178,7 @@ class Mydialog(QDialog):
         self.ui.BtnPrimerPunto.clicked.connect(self.abrirPunto1);
         self.ui.Btn2Punto.clicked.connect(self.abrirPunto2);
         self.ui.BtnVM.clicked.connect(self.abrirPunto3);
+        self.ui.BtnSimuladorAEFD.clicked.connect(self.abrirSimuladorAEFD);
         
         
     def abrirPunto1(self):
@@ -108,20 +189,20 @@ class Mydialog(QDialog):
         self.ui2.txtl1.setText("x,y,z")
         self.ui2.txtl2.setText("0,1")
         self.ui2.txtl3.setText("a,b")
-        self.punto1.exec_();
+        self.punto1.show();
         
     def abrirPunto2(self):
         self.punto2 = QDialog(self);
         self.ui3=Ui_Punto2();
         self.ui3.setupUi(self.punto2);
         self.ui3.BtnGenerarTablaV.clicked.connect(self.generarTabla)
-        self.punto2.exec_();
+        self.ui3.lbnValidacion.hide()
+        self.punto2.show();
     
     def abrirPunto3(self):
         self.punto3 = QDialog(self);
         self.ui4=Ui_punto3();
         self.ui4.setupUi(self.punto3);
-        self.ui4.txtDefVM.setPlainText(str(generarDefVM()))
         self.ui4.btn500mas.clicked.connect(lambda: self.sumarDinero(500))
         self.ui4.btn500menos.clicked.connect(lambda:self.sumarDinero(-500))
         self.ui4.btn200mas.clicked.connect(lambda: self.sumarDinero(200))
@@ -129,7 +210,107 @@ class Mydialog(QDialog):
         self.ui4.btn100mas.clicked.connect(lambda: self.sumarDinero(100))
         self.ui4.btn100menos.clicked.connect(lambda: self.sumarDinero(-100))
         self.ui4.txtCantidadTotal.setText("0");
-        self.punto3.exec_();
+        self.ui4.btnDefinicionFormaVM.clicked.connect(self.abrirPunto3def)
+        self.punto3.show();
+    
+    def abrirPunto3def(self):
+        self.VMDef = QDialog(self);
+        self.ui5 = Ui_VdefVM();
+        self.ui5.setupUi(self.VMDef);
+        s = [0, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300,">1300"]
+        self.ui5.txtSVM.setText(str(s));
+        omega= [+100,-100,+200,-200,+500,-500];
+        self.ui5.txtOmeVM.setText(str(omega));
+        i = [0];
+        self.ui5.txtIVm.setText(str(i))
+        f = [1300];
+        self.ui5.txtFVM.setText(str(f))
+        delta = productoCruz(s,omega);
+        self.ui5.txtSigVM.setPlainText(str(delta))
+        defVm = [s,omega,delta,i,f]
+        self.ui5.txtDefVM.setPlainText(str(defVm))
+        self.VMDef.show();
+        
+    def abrirSimuladorAEFD(self):
+        self.vAEFD = QDialog(self);
+        self.ui6 = Ui_vAEFD();
+        self.ui6.setupUi(self.vAEFD);
+        self.ui6.BtnCrearEstado.clicked.connect(self.crearEstado)
+        self.ui6.BtnAgregarTransicion.clicked.connect(self.seleccionarEstado)
+        self.ui6.vista.scene = QGraphicsScene()
+        self.ui6.vista.setScene(self.ui6.vista.scene)
+        self.ui6.vista.setFocus()
+        self.estadoSeleccionado1 = None
+        self.estadoSeleccionado2 = None
+        self.contador = 0
+        self.vAEFD.show();
+        
+        
+    def crearEstado(self):
+        # Crear un círculo (estado) con coordenadas basadas en el contador
+        estado = EstadoItem(self.contador * 60, 0, 50, 50, "Estado")  # Usar la clase EstadoItem para crear el círculo con texto
+
+        # Añadir el estado (círculo con texto) a la escena
+        self.ui6.vista.scene.addItem(estado)
+
+        # Incrementar el contador para colocar el siguiente estado en otra posición
+        self.contador += 1
+        
+    def eliminar_estado(self, estado_id):
+        # Eliminar visualmente el estado
+        estado = self.obtener_estado_por_id(estado_id)
+        if estado:
+            self.canvas.removeItem(estado)
+
+        # Eliminar transiciones relacionadas con el estado
+        transiciones_a_eliminar = [transicion for transicion in self.transiciones if transicion.origen == estado_id or transicion.destino == estado_id]
+        for transicion in transiciones_a_eliminar:
+            self.eliminar_transicion(transicion.id)
+
+        # Actualizar la lista de estados
+        self.estados = [estado for estado in self.estados if estado.id != estado_id]
+
+    def eliminar_transicion(self, transicion_id):
+        # Eliminar visualmente la transición
+        transicion = self.obtener_transicion_por_id(transicion_id)
+        if transicion:
+            self.canvas.removeItem(transicion)
+
+        # Actualizar la lista de transiciones
+        self.transiciones = [t for t in self.transiciones if t.id != transicion_id]
+
+
+
+
+
+    def obtener_estado_por_id(self, estado_id):
+        # Devuelve el estado que coincide con el estado_id
+        for estado in self.estados:
+            if estado.id == estado_id:
+                return estado
+        return None
+
+    def obtener_transicion_por_id(self, transicion_id):
+        # Devuelve la transición que coincide con el transicion_id
+        for transicion in self.transiciones:
+            if transicion.id == transicion_id:
+                return transicion
+        return None
+
+
+    def seleccionarEstado(self, estado):
+        if self.estadoSeleccionado1 is None:
+            self.estadoSeleccionado1 = estado
+        elif self.estadoSeleccionado2 is None:
+            self.estadoSeleccionado2 = estado
+            # Una vez que ambos estados están seleccionados, crear la transición
+            self.crearTransicion(self.estadoSeleccionado1, self.estadoSeleccionado2, "Etiqueta")
+            
+            # Resetear las selecciones
+            self.estadoSeleccionado1 = None
+            self.estadoSeleccionado2 = None
+
+
         
     def generarConca(self):
         L1 = self.ui2.txtl1.text();
@@ -224,8 +405,9 @@ class Mydialog(QDialog):
                 ]
                 model4.appendRow(row)
         self.ui3.TbMorgan4.setModel(model4);
-        self.ui3.TbMorgan4.resizeColumnsToContents();
-        self.ui3.TbMorgan4.resizeRowsToContents();
+
+        
+        self.ui3.lbnValidacion.show()
         
         
     def abrirPdf(self):
@@ -273,6 +455,7 @@ class Mydialog(QDialog):
         match cantidad:
             case 500:
                 cantidadActual= int(self.ui4.lbCmoneda500.text());
+               
                 self.ui4.lbCmoneda500.setText(str(cantidadActual+1))
             case -500:
                 cantidadActual= int(self.ui4.lbCmoneda500.text());

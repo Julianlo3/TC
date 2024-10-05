@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>vAEFD</class>
+ <widget class="QDialog" name="vAEFD">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1046</width>
+    <height>708</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout_2">
+   <item>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item alignment="Qt::AlignHCenter">
+      <widget class="QLabel" name="label">
+       <property name="font">
+        <font>
+         <pointsize>16</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>Simulador autómata de estados finitos deterministicos </string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QGraphicsView" name="vista"/>
+     </item>
+     <item>
+      <widget class="QPushButton" name="BtnCrearEstado">
+       <property name="text">
+        <string>Crear estado</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="BtnAgregarTransicion">
+       <property name="text">
+        <string>Agregar transición</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
