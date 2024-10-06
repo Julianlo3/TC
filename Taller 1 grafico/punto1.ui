@@ -6,20 +6,20 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1000</width>
-    <height>700</height>
+    <width>1051</width>
+    <height>750</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>1000</width>
-    <height>700</height>
+    <width>1051</width>
+    <height>750</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>1000</width>
-    <height>700</height>
+    <width>1051</width>
+    <height>750</height>
    </size>
   </property>
   <property name="palette">
@@ -1419,9 +1419,9 @@ p, li { white-space: pre-wrap; }
           <colorrole role="WindowText">
            <brush brushstyle="SolidPattern">
             <color alpha="255">
-             <red>0</red>
-             <green>0</green>
-             <blue>0</blue>
+             <red>255</red>
+             <green>255</green>
+             <blue>255</blue>
             </color>
            </brush>
           </colorrole>
@@ -1565,9 +1565,9 @@ p, li { white-space: pre-wrap; }
           <colorrole role="WindowText">
            <brush brushstyle="SolidPattern">
             <color alpha="255">
-             <red>0</red>
-             <green>0</green>
-             <blue>0</blue>
+             <red>255</red>
+             <green>255</green>
+             <blue>255</blue>
             </color>
            </brush>
           </colorrole>
@@ -1855,8 +1855,15 @@ p, li { white-space: pre-wrap; }
          </disabled>
         </palette>
        </property>
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
        <property name="autoFillBackground">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <property name="text">
         <string> L1 • L2 =</string>
@@ -1901,9 +1908,9 @@ p, li { white-space: pre-wrap; }
           <colorrole role="WindowText">
            <brush brushstyle="SolidPattern">
             <color alpha="255">
-             <red>0</red>
-             <green>0</green>
-             <blue>0</blue>
+             <red>255</red>
+             <green>255</green>
+             <blue>255</blue>
             </color>
            </brush>
           </colorrole>
@@ -2047,9 +2054,9 @@ p, li { white-space: pre-wrap; }
           <colorrole role="WindowText">
            <brush brushstyle="SolidPattern">
             <color alpha="255">
-             <red>0</red>
-             <green>0</green>
-             <blue>0</blue>
+             <red>255</red>
+             <green>255</green>
+             <blue>255</blue>
             </color>
            </brush>
           </colorrole>
@@ -2337,8 +2344,15 @@ p, li { white-space: pre-wrap; }
          </disabled>
         </palette>
        </property>
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
        <property name="autoFillBackground">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <property name="text">
         <string> L3 • L1=</string>
@@ -2374,9 +2388,9 @@ p, li { white-space: pre-wrap; }
           <colorrole role="WindowText">
            <brush brushstyle="SolidPattern">
             <color alpha="255">
-             <red>0</red>
-             <green>0</green>
-             <blue>0</blue>
+             <red>255</red>
+             <green>255</green>
+             <blue>255</blue>
             </color>
            </brush>
           </colorrole>
@@ -2520,9 +2534,9 @@ p, li { white-space: pre-wrap; }
           <colorrole role="WindowText">
            <brush brushstyle="SolidPattern">
             <color alpha="255">
-             <red>0</red>
-             <green>0</green>
-             <blue>0</blue>
+             <red>255</red>
+             <green>255</green>
+             <blue>255</blue>
             </color>
            </brush>
           </colorrole>
@@ -2810,8 +2824,15 @@ p, li { white-space: pre-wrap; }
          </disabled>
         </palette>
        </property>
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
        <property name="autoFillBackground">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <property name="text">
         <string>L2 • L3 • L1 =</string>
@@ -2847,9 +2868,9 @@ p, li { white-space: pre-wrap; }
           <colorrole role="WindowText">
            <brush brushstyle="SolidPattern">
             <color alpha="255">
-             <red>0</red>
-             <green>0</green>
-             <blue>0</blue>
+             <red>255</red>
+             <green>255</green>
+             <blue>255</blue>
             </color>
            </brush>
           </colorrole>
@@ -2993,9 +3014,9 @@ p, li { white-space: pre-wrap; }
           <colorrole role="WindowText">
            <brush brushstyle="SolidPattern">
             <color alpha="255">
-             <red>0</red>
-             <green>0</green>
-             <blue>0</blue>
+             <red>255</red>
+             <green>255</green>
+             <blue>255</blue>
             </color>
            </brush>
           </colorrole>
@@ -3283,8 +3304,15 @@ p, li { white-space: pre-wrap; }
          </disabled>
         </palette>
        </property>
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
        <property name="autoFillBackground">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <property name="text">
         <string>L1*=</string>
@@ -3329,9 +3357,9 @@ p, li { white-space: pre-wrap; }
           <colorrole role="WindowText">
            <brush brushstyle="SolidPattern">
             <color alpha="255">
-             <red>0</red>
-             <green>0</green>
-             <blue>0</blue>
+             <red>255</red>
+             <green>255</green>
+             <blue>255</blue>
             </color>
            </brush>
           </colorrole>
@@ -3475,9 +3503,9 @@ p, li { white-space: pre-wrap; }
           <colorrole role="WindowText">
            <brush brushstyle="SolidPattern">
             <color alpha="255">
-             <red>0</red>
-             <green>0</green>
-             <blue>0</blue>
+             <red>255</red>
+             <green>255</green>
+             <blue>255</blue>
             </color>
            </brush>
           </colorrole>
@@ -3765,8 +3793,15 @@ p, li { white-space: pre-wrap; }
          </disabled>
         </palette>
        </property>
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
        <property name="autoFillBackground">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <property name="text">
         <string>(L2 • L3) *</string>
@@ -3807,7 +3842,10 @@ p, li { white-space: pre-wrap; }
    </item>
    <item row="2" column="0">
     <layout class="QVBoxLayout" name="verticalLayout_2">
-     <item alignment="Qt::AlignHCenter">
+     <property name="spacing">
+      <number>5</number>
+     </property>
+     <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
       <widget class="QPushButton" name="BtnGenerar">
        <property name="minimumSize">
         <size>
@@ -3841,9 +3879,9 @@ p, li { white-space: pre-wrap; }
           <colorrole role="WindowText">
            <brush brushstyle="SolidPattern">
             <color alpha="255">
-             <red>0</red>
-             <green>0</green>
-             <blue>0</blue>
+             <red>255</red>
+             <green>255</green>
+             <blue>255</blue>
             </color>
            </brush>
           </colorrole>
@@ -3987,9 +4025,9 @@ p, li { white-space: pre-wrap; }
           <colorrole role="WindowText">
            <brush brushstyle="SolidPattern">
             <color alpha="255">
-             <red>0</red>
-             <green>0</green>
-             <blue>0</blue>
+             <red>255</red>
+             <green>255</green>
+             <blue>255</blue>
             </color>
            </brush>
           </colorrole>
@@ -4277,14 +4315,21 @@ p, li { white-space: pre-wrap; }
          </disabled>
         </palette>
        </property>
+       <property name="font">
+        <font>
+         <pointsize>14</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
        <property name="autoFillBackground">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <property name="text">
         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;L3=&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="margin">
-        <number>5</number>
+        <number>0</number>
        </property>
       </widget>
      </item>
@@ -4296,9 +4341,9 @@ p, li { white-space: pre-wrap; }
           <colorrole role="WindowText">
            <brush brushstyle="SolidPattern">
             <color alpha="255">
-             <red>0</red>
-             <green>0</green>
-             <blue>0</blue>
+             <red>255</red>
+             <green>255</green>
+             <blue>255</blue>
             </color>
            </brush>
           </colorrole>
@@ -4442,9 +4487,9 @@ p, li { white-space: pre-wrap; }
           <colorrole role="WindowText">
            <brush brushstyle="SolidPattern">
             <color alpha="255">
-             <red>0</red>
-             <green>0</green>
-             <blue>0</blue>
+             <red>255</red>
+             <green>255</green>
+             <blue>255</blue>
             </color>
            </brush>
           </colorrole>
@@ -4732,8 +4777,15 @@ p, li { white-space: pre-wrap; }
          </disabled>
         </palette>
        </property>
+       <property name="font">
+        <font>
+         <pointsize>14</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
        <property name="autoFillBackground">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <property name="text">
         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Ingrese los datos de las colecciones separados por , &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -4844,9 +4896,9 @@ p, li { white-space: pre-wrap; }
           <colorrole role="WindowText">
            <brush brushstyle="SolidPattern">
             <color alpha="255">
-             <red>0</red>
-             <green>0</green>
-             <blue>0</blue>
+             <red>255</red>
+             <green>255</green>
+             <blue>255</blue>
             </color>
            </brush>
           </colorrole>
@@ -4990,9 +5042,9 @@ p, li { white-space: pre-wrap; }
           <colorrole role="WindowText">
            <brush brushstyle="SolidPattern">
             <color alpha="255">
-             <red>0</red>
-             <green>0</green>
-             <blue>0</blue>
+             <red>255</red>
+             <green>255</green>
+             <blue>255</blue>
             </color>
            </brush>
           </colorrole>
@@ -5280,14 +5332,21 @@ p, li { white-space: pre-wrap; }
          </disabled>
         </palette>
        </property>
+       <property name="font">
+        <font>
+         <pointsize>14</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
        <property name="autoFillBackground">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <property name="text">
         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;L2=&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="margin">
-        <number>5</number>
+        <number>0</number>
        </property>
       </widget>
      </item>
@@ -5305,9 +5364,9 @@ p, li { white-space: pre-wrap; }
           <colorrole role="WindowText">
            <brush brushstyle="SolidPattern">
             <color alpha="255">
-             <red>0</red>
-             <green>0</green>
-             <blue>0</blue>
+             <red>255</red>
+             <green>255</green>
+             <blue>255</blue>
             </color>
            </brush>
           </colorrole>
@@ -5451,9 +5510,9 @@ p, li { white-space: pre-wrap; }
           <colorrole role="WindowText">
            <brush brushstyle="SolidPattern">
             <color alpha="255">
-             <red>0</red>
-             <green>0</green>
-             <blue>0</blue>
+             <red>255</red>
+             <green>255</green>
+             <blue>255</blue>
             </color>
            </brush>
           </colorrole>
@@ -5741,14 +5800,21 @@ p, li { white-space: pre-wrap; }
          </disabled>
         </palette>
        </property>
+       <property name="font">
+        <font>
+         <pointsize>14</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
        <property name="autoFillBackground">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <property name="text">
         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;L1=&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="margin">
-        <number>5</number>
+        <number>0</number>
        </property>
       </widget>
      </item>

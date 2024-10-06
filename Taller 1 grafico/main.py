@@ -1,18 +1,15 @@
 import sys
-import subprocess,platform,os;
+import os;
+import re
 import itertools
-from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QApplication,QDialog, QApplication, QGraphicsView, QGraphicsScene, QPushButton, QGraphicsEllipseItem , QGraphicsTextItem, QInputDialog, QGraphicsLineItem, QMenu, QAction
-from PyQt5.QtGui import QTextCursor
-from PyQt5.QtWidgets import QGraphicsEllipseItem, QGraphicsTextItem
+from PyQt5.QtWidgets import QApplication,QDialog, QApplication, QGraphicsScene
 from PyQt5.QtGui import QStandardItemModel, QStandardItem
-from PyQt5.QtCore import QRectF
 from vPrincipal import Ui_Wprincipal
 from punto1 import Ui_Punto1
 from punto2 import Ui_Punto2
 from punto3 import Ui_punto3
 from VMDef import Ui_VdefVM
-from vAEFD import Ui_vAEFD
+from expreRegu import Ui_ExpresionRegular
 sys.path.append(os.path.abspath("./Files/img"))
 
 
@@ -103,8 +100,7 @@ class Mydialog(QDialog):
         self.ui.BtnPrimerPunto.clicked.connect(self.abrirPunto1);
         self.ui.Btn2Punto.clicked.connect(self.abrirPunto2);
         self.ui.BtnVM.clicked.connect(self.abrirPunto3);
-        self.ui.BtnSimuladorAEFD.clicked.connect(self.abrirSimuladorAEFD);
-        
+        self.ui.btnExpresionRegu.clicked.connect(self.abrirExpreRegu);
         
     def abrirPunto1(self):
         self.punto1 = QDialog(self);
@@ -156,14 +152,32 @@ class Mydialog(QDialog):
         self.ui5.txtDefVM.setPlainText(str(defVm))
         self.VMDef.show();
         
-    def abrirSimuladorAEFD(self):
-        self.vAEFD = QDialog(self);
-        self.ui6 = Ui_vAEFD();
-        self.ui6.setupUi(self.vAEFD);
-        self.ui6.vista.scene = QGraphicsScene()
-        self.ui6.vista.setScene(self.ui6.vista.scene)
-        self.ui6.vista.setFocus()
-        self.vAEFD.show();
+    def abrirExpreRegu(self):
+        self.expreRegu = QDialog(self);
+        self.ui6 = Ui_ExpresionRegular();
+        self.ui6.setupUi(self.expreRegu);
+        self.ui6.btnEvaluarExpre.clicked.connect(self.evaluarExpresionRegu);
+        self.expreRegu.show()
+        
+    def evaluarExpresionRegu(self):
+        patron = [self.ui6.txtExpresionRegu.text()]
+        print(patron)
+        palabras = self.ui6.txtListaPalabras.text()
+        listaPalabras = palabras.split(",")
+        print(listaPalabras)
+        listaResultado = []
+        
+        try:
+            for p in patron:
+                for w in listaPalabras:
+                    match = bool(re.fullmatch(p, w))  # Evaluar cada palabra con el patrón completo
+                    listaResultado.append((w, match))  # Guardar el patrón completo en el resultado
+            self.ui6.txtResultadoExpreRegu.setPlainText(str(listaResultado))
+        except:
+            self.ui6.txtResultadoExpreRegu.setPlainText("ERROR EN LA VALIDACION")
+
+
+
         
     def generarConca(self):
         L1 = self.ui2.txtl1.text();
