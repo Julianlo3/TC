@@ -9,7 +9,6 @@ from punto1 import Ui_Punto1
 from punto2 import Ui_Punto2
 from punto3 import Ui_punto3
 from VMDef import Ui_VdefVM
-from expreRegu import Ui_ExpresionRegular
 sys.path.append(os.path.abspath("./Files/img"))
 
 
@@ -100,7 +99,6 @@ class Mydialog(QDialog):
         self.ui.BtnPrimerPunto.clicked.connect(self.abrirPunto1);
         self.ui.Btn2Punto.clicked.connect(self.abrirPunto2);
         self.ui.BtnVM.clicked.connect(self.abrirPunto3);
-        self.ui.btnExpresionRegu.clicked.connect(self.abrirExpreRegu);
         
     def abrirPunto1(self):
         self.punto1 = QDialog(self);
@@ -152,31 +150,6 @@ class Mydialog(QDialog):
         self.ui5.txtDefVM.setPlainText(str(defVm))
         self.VMDef.show();
         
-    def abrirExpreRegu(self):
-        self.expreRegu = QDialog(self);
-        self.ui6 = Ui_ExpresionRegular();
-        self.ui6.setupUi(self.expreRegu);
-        self.ui6.btnEvaluarExpre.clicked.connect(self.evaluarExpresionRegu);
-        self.expreRegu.show()
-        
-    def evaluarExpresionRegu(self):
-        patron = [self.ui6.txtExpresionRegu.text()]
-        print(patron)
-        palabras = self.ui6.txtListaPalabras.text()
-        listaPalabras = palabras.split(",")
-        print(listaPalabras)
-        listaResultado = []
-        
-        try:
-            for p in patron:
-                for w in listaPalabras:
-                    match = bool(re.fullmatch(p, w))  # Evaluar cada palabra con el patrón completo
-                    listaResultado.append((w, match))  # Guardar el patrón completo en el resultado
-            self.ui6.txtResultadoExpreRegu.setPlainText(str(listaResultado))
-        except:
-            self.ui6.txtResultadoExpreRegu.setPlainText("ERROR EN LA VALIDACION")
-
-
 
         
     def generarConca(self):
